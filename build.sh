@@ -14,11 +14,11 @@ commit=`git rev-parse --short=10 HEAD`
 whoami=`whoami`
 
 # Update submodules
-git submodule foreach git pull origin master
+#git submodule foreach git pull origin master
 
 # Update Bower
-cat bower \
-	| sed "s/\"1\.0\.0\"/\"${version}\"/" >bower.json
+#cat bower \
+#	| sed "s/\"1\.0\.0\"/\"${version}\"/" >bower.json
 
 # Fix conflict with adler32 & FileSaver
 adler1="libs/adler32cs.js/adler32cs.js"
@@ -40,7 +40,7 @@ cat ${files} ${libs} \
 	| sed "s/\"1\.0\.0-trunk\"/\"${version}-debug ${build}:${whoami}\"/" >${output/min/debug}
 uglifyjs ${options} -o ${output} ${files} ${libs}
 
-# Pretend license information to minimized file
+# Prepend license information to minimized file
 for fn in ${files} ${libs}; do
 	awk '/^\/\*/,/\*\//' $fn \
 		| sed -n -e '1,/\*\//p' \
